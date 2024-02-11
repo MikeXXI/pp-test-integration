@@ -58,5 +58,24 @@ describe('Test d\'intégration de l\'application', () => {
 
     });
 
+    it('validation formulaire', async () => {
+        render(<App />);
+        const button = screen.getByText('Valider');
+
+        fireEvent.change(screen.getByLabelText(/Nom de famille/i), { target: { value: 'test' } });
+        fireEvent.change(screen.getByLabelText(/Prénom/i), { target: { value: 'test' } });
+        fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'test@test.fr' } });
+        fireEvent.change(screen.getByLabelText(/Date de naissance/i), { target: { value: '2000-09-01' } });
+        fireEvent.change(screen.getByLabelText(/Ville/i), { target: { value: 'test' } });
+        fireEvent.change(screen.getByLabelText(/Code Postal/i), { target: { value: '06250' } }); 
+
+        expect(button).toBeEnabled();
+
+        fireEvent.change(screen.getByLabelText(/Nom de famille/i), { target: { value: '' } });
+
+        expect(button).toBeDisabled();        
+
+    });
+
     
 });

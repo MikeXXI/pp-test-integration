@@ -1,5 +1,5 @@
 // Description: Fonctions de vérification des données.
-// Verifie si le nom et ou le prenom et valide est valide
+// Verifie si le nom et ou le prenom est valide
 const verifNom = (nom) => {
   const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/;
   return regex.test(nom);
