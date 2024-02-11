@@ -26,23 +26,23 @@ L'application ets lancée grâce au fichier `App.js`.
 
 Les technologies utilisées dans cette application sont les suivantes :
 
-**React** : Une bibliothèque JavaScript open-source utilisée pour la construction d'interfaces utilisateur interactives.
+- **React** : Une bibliothèque JavaScript open-source utilisée pour la construction d'interfaces utilisateur interactives.
 
-**Material-UI** : Une bibliothèque de composants React pour une conception rapide et facile. ( d'autres sous composant de mui sont utilisées)
+- **Material-UI** : Une bibliothèque de composants React pour une conception rapide et facile. ( d'autres sous composant de mui sont utilisées)
 
-**React Toastify** : Une bibliothèque React pour afficher des notifications toast.
+- **React Toastify** : Une bibliothèque React pour afficher des notifications toast.
 
-**Babel** : Utilisé pour transpiler le code JavaScript moderne en une version compatible avec les navigateurs.
+- **Babel** : Utilisé pour transpiler le code JavaScript moderne en une version compatible avec les navigateurs.
 
-**jsdoc** : Un générateur de documentation pour JavaScript.
+- **jsdoc** : Un générateur de documentation pour JavaScript.
 
-**React Test Renderer** : Utilisé pour générer des rendus de composants React pour les tests.
+- **React Test Renderer** : Utilisé pour générer des rendus de composants React pour les tests.
 
-**@testing-library/react** : Une bibliothèque de tests pour React, axée sur le comportement de l'utilisateur final.
+- **@testing-library/react** : Une bibliothèque de tests pour React, axée sur le comportement de l'utilisateur final.
 
-**@testing-library/jest-dom** : Utilisé pour étendre les fonctionnalités de Jest pour les tests DOM.
+- **@testing-library/jest-dom** : Utilisé pour étendre les fonctionnalités de Jest pour les tests DOM.
 
-**@testing-library/user-event** : Utilisé pour simuler des interactions utilisateur lors des tests.
+- **@testing-library/user-event** : Utilisé pour simuler des interactions utilisateur lors des tests.
 
 ### Instructions d'utilisation
 
