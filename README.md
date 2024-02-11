@@ -20,7 +20,7 @@ Vous pourrai ainsi réaliser les commandes suivantes :
 Le projet suit une structure standard pour une application React. Il comprend un dossier `test` contenant `TU_app.test.js`, qui concerne les tests unitaires de l'application, et `TU_verifFonction.test.js`, qui concerne les tests unitaires des fonctions du fichier `verifFonction.js`.
 Le fichier `App.test.js` contient les tests d'integration.
 
-L'application ets lancée grâce au fichier `App.js`.
+L'application est lancée grâce au fichier `App.js`.
 
 ### Technologies utilisées
 
