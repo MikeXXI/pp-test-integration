@@ -76,6 +76,9 @@ describe('Test d\'intégration de l\'application', () => {
         expect(button).toBeDisabled();        
 
     });
+    // it('should throw a "missing param p" error', () => {
+    //     expect(() => calculateAge()).toThrow('missing param p');
+    // })
 
     
 });
