@@ -1,0 +1,24 @@
+name: Build and Test React Application
+# Control when the action will run
+on:
+# Triggers the workflow on push or pull request events but only the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+# A workflow run is made up of one or more jobs that can run sequentially or parallely
+jobs:
+  build-test:
+    name: deploy test
+    runs-on: ubuntu-latest
+    
+    strategy: 
+      matrix:
+        node-version : [20.x, 21.x]
+
+    steps:
+      - uses: actions/chekout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
