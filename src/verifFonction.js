@@ -1,17 +1,19 @@
 // Description: Fonctions de vérification des données.
-// Verifie si le nom et ou le prenom est valide
-const verifNom = (nom) => {
+
+
+/** Verifie si le nom et ou le prenom est valide **/
+const verifNom = (nom) =>{
   const regex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/;
   return regex.test(nom);
 }
 
-// Verifie si l'email est valide
+/** Verifie si l'email est valide **/
 const verifEmail = (email) => {
   const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   return regex.test(email);
 }
 
-// Calcul l'age de la personne
+/** Calcul l'age de la personne **/
 const calculateAge = (date) => {
   const dateActuelle = new Date();
   const dateNaissance = new Date(date);
@@ -23,7 +25,7 @@ const calculateAge = (date) => {
   }
 }
 
-// Verifie si la date est valide et si la personne est majeur
+/** Verifie si la date est valide et si la personne est majeur **/
 const verifDate = (date) => {
   const regex = /^\d{4}-\d{2}-\d{2}$/;
   if (regex.test(date)) {
@@ -38,7 +40,7 @@ const verifDate = (date) => {
   }
 }
 
-// Verifie si la code est valide et français
+/** Verifie si le code postal est valide **/
 const verifCode = (code) => {
   const regex = /^[0-9]{5}$/;
   return regex.test(code);

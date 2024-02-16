@@ -55,4 +55,5 @@ describe('Test Unitaire des fonctions', () => {
         const age = calculateAge(dateNaissance);
         expect(age).toEqual(ageAttendu);
          });
+
 });

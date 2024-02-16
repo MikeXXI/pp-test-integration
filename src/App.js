@@ -37,6 +37,7 @@ function App() {
     setFormData(prevState => ({ ...prevState, [champ]: e.target.value.trim() }));
   };
 
+  /** Valide le formulaire */
   const validateFormData = () => {
     const errors = {
       name: !verifNom(formData.name),
