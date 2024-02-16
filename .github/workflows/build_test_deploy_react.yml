@@ -26,6 +26,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
       - name: npm ci, build and test
         run: |
           npm ci
@@ -45,6 +47,7 @@ jobs:
         with:
           # Upload entire repository
           path: build
+          if-no-files-found: error
 
   # Deploy job
   deploy:
