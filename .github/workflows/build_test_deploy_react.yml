@@ -32,12 +32,14 @@ jobs:
         run: |
           npm ci
           npm run build --if-present
-          npm run test  
+          npm run test
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         env:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: MikeXXI/pp-test-integration        
+          slug: MikeXXI/pp-test-integration
+                 
       - name: Generate jsdoc
         run: npm run jsdoc
       - name: Setup Pages
