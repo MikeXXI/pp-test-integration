@@ -51,6 +51,12 @@ jobs:
           # Upload entire repository
           path: build
           if-no-files-found: error
+      # Generate version
+      - name: Generate version with tag, id workflow, number of run and number of attempts
+        id: version
+        run: npm version "VERSION=$(git describe --tags --always --dirty)-${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}" >> $GITHUB_ENV
+
+
 
   # Deploy job
   deploy:
