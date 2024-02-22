@@ -55,7 +55,7 @@ jobs:
       - name: Generate version with tag, id workflow, number of run and number of attempts
         id: version
         run: |
-          git tag -d <tagname>-${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }} -a -m "build number ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}"
+          git tag [-n[<num>]]-${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }} -a -m "build number ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}"
           npm version from-git
 
 
