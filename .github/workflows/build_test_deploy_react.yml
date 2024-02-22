@@ -62,7 +62,7 @@ jobs:
           build_number=$(echo ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }})
           git config --local user.email "mickael.djegherif@outlook.fr"
           git config --local user.name "Mike"          
-          git tag "v${ git tag -a}" -m "Build: $build_number"
+          git tag -n -m "Build: $build_number"
           git tag
           npm version --allow-same-version from-git --tag-version-prefix='v'
 
