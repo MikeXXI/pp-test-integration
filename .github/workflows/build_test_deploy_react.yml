@@ -63,6 +63,7 @@ jobs:
           git config --local user.email "mickael.djegherif@outlook.fr"
           git config --local user.name "Mike"          
           git tag -a "v${{ github.run_number }}.${{ github.run_id }}" -m "Build: $build_number"
+          git tag
           npm version --allow-same-version from-git --tag-version-prefix='v'
 
 
