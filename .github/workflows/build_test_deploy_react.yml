@@ -62,8 +62,12 @@ jobs:
           build_number=$(echo ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }})
           git config --local user.email "mickael.djegherif@outlook.fr"
           git config --local user.name "Mike"
-          git tag
-          npm version --allow-same-version from-git --tag-version-prefix='v'
+          latest_tag=$(git describe --tags --abbrev=0)
+          version=$(npm --no-git-tag-version version patch)
+          new_version="${version}-${build_number}"
+          git tag -a "${new_version}" "${latest_tag}" -m "Build: ${build_number}"
+          git push origin "${new_version}"
+          npm version "${new_version}"
 
 
 
