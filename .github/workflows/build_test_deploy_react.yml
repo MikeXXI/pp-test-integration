@@ -56,7 +56,7 @@ jobs:
         id: version
         run: |
           npm view version
-          git tag version -${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }} -a -m "build number ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}"
+          git tag -d <tagname>-${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }} -a -m "build number ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}"
           npm version from-git
 
 
