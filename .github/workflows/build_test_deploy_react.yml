@@ -56,7 +56,7 @@ jobs:
         id: version
         run: |
           build_number=$(echo ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }})
-          git tag -n -${build_number} -a -m "build number ${build_number}"
+          git tag -a "v${{ github.run_number }}.${{ github.run_id }}" -m "Build: $build_number"
           npm version --allow-same-version from-git
 
 
