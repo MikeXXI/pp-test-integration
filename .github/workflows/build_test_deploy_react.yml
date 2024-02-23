@@ -37,7 +37,19 @@ jobs:
           npm ci
           npm run build --if-present
           npm run test
-
+      # Generate version
+      - name: Set env
+        run: |
+          npm i -g semver
+          echo "GITHUB_VERSION_BUILD=$(echo $(semver 0.1.1 -i prerelease --preid ${{github.run_id}}-${{github.run_number}}-${{github.run_attempt}}))" >> $GITHUB_ENV
+      - name: Update versionning
+        run: |
+          git config --global user.email "mickael.djegherif@outlook.fr"
+          git config --global user.name "Mike"
+          npm version ${{env.GITHUB_VERSION_BUILD}}
+          echo ${{env.GITHUB_VERSION_BUILD}} >> README.md
+          git commit -a -m "new version ${{env.GITHUB_VERSION_BUILD}}"
+          
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
@@ -55,25 +67,7 @@ jobs:
           # Upload entire repository
           path: build
           if-no-files-found: error
-      # Generate version
-      - name: Set variable
-        run: |
-          BUILD_NUMBER=${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}
-          echo "Build number: $BUILD_NUMBER"
-          LATEST_TAG=$(git tag --sort=committerdate | grep -E '[0-9]' | tail -1 | cut -b 2-7)
-          if [ -z "$LATEST_TAG" ]; then
-            LATEST_TAG="v1.0.0"
-          fi
-          echo "Latest tag: $LATEST_TAG"
-
       
-      - name: Generate version with tag, id workflow, number of run and number of attempts
-        id: version
-        run: |
-          git config --local user.email "mickael.djegherif@outlook.fr"
-          git config --local user.name "Mike"
-          git tag "${{env.LATEST_TAG}}${{env.BUILD_NUMBER}}" -a -m "Build: ${env.BUILD_NUMBER}"
-          git tag
           
 
 
