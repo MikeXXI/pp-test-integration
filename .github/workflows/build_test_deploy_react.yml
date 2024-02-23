@@ -62,6 +62,7 @@ jobs:
           echo "Build number: $BUILD_NUMBER"
           LATEST_TAG=$(git tag --sort=committerdate | grep -E '[0-9]' | tail -1 | cut -b 2-7)
           echo "Latest tag: $LATEST_TAG"
+      
       - name: Generate version with tag, id workflow, number of run and number of attempts
         id: version
         run: |
