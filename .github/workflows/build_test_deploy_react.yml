@@ -59,7 +59,7 @@ jobs:
       - name: Generate version with tag, id workflow, number of run and number of attempts
         id: version
         run: |
-          build_number=$(echo ${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }})
+          build_number=${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}
           git config --local user.email "mickael.djegherif@outlook.fr"
           git config --local user.name "Mike"
           latest_tag=$(git describe --tags --abbrev=0)          
