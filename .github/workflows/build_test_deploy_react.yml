@@ -68,7 +68,6 @@ jobs:
         run: |
           git config --local user.email "mickael.djegherif@outlook.fr"
           git config --local user.name "Mike"
-          l
           git tag "${env.LATEST_TAG}-{$env.BUILD_NUMBER}" -a -m "Build: ${env.BUILD_NUMBER}"
           git tag
           
