@@ -56,14 +56,18 @@ jobs:
           path: build
           if-no-files-found: error
       # Generate version
+      - name: Set variable
+        run: |
+          BUILD_NUMBER=${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}
+          echo "Build number: $BUILD_NUMBER"
       - name: Generate version with tag, id workflow, number of run and number of attempts
         id: version
         run: |
-          build_number=${{ github.run_id }}-${{ github.run_number }}-${{ github.run_attempt }}
           git config --local user.email "mickael.djegherif@outlook.fr"
           git config --local user.name "Mike"
-          latest_tag=$(git describe --tags --abbrev=0)          
-          git tag "${latest_tag}-{$release}{$build_number}" -a -m "Build: ${build_number}"
+          latest_tag=$(git describe --tags --abbrev=0)
+
+          git tag "${latest_tag}-{$env.BUILD_NUMBER}" -a -m "Build: ${env.BUILD_NUMBER}"
           git tag
           
 
