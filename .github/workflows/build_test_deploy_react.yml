@@ -28,7 +28,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Installer les dépendances
-        run: npm ci  # Plus rapide que npm install
+        run: npm install  # npm ci Plus rapide que install mais non fonctionnel si lock different de package.json
 
       - name: Build et Test
         run: |
