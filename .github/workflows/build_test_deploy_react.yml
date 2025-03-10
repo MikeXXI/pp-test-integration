@@ -53,11 +53,15 @@ jobs:
         run: |
           git config --global user.email "mickael.djegherif@outlook.fr"
           git config --global user.name "Mike"
-          npm version ${{env.GITHUB_VERSION_BUILD}}
-          echo ${{env.GITHUB_VERSION_BUILD}} >> README.md
-          git add README.md # Ajout du fichier modifié
-          git commit -am "new version ${{env.GITHUB_VERSION_BUILD}}"
-          git push origin HEAD:master  # Correction ici
+          
+          # Utilisation de semver pour générer une nouvelle version
+          npm version prerelease --preid=${{ github.run_id }} --no-git-tag-version
+          # Ajout de la nouvelle version au fichier README.md
+          echo "Version: $(cat package.json | jq -r .version)" >> README.md
+          # Commit et push
+          git add README.md
+          git commit -m "new version $(cat package.json | jq -r .version)"
+          git push origin HEAD:master
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
