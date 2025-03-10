@@ -34,6 +34,11 @@ jobs:
         run: |
           npm run build --if-present
           npm test
+      # Étape de débogage pour vérifier les fichiers dans le répertoire build
+      - name: Vérifier les fichiers générés
+        run: |
+          echo "Contenu du répertoire build:"
+          ls -l build  # Liste les fichiers dans le répertoire build
 
       - name: Générer version
         run: |
