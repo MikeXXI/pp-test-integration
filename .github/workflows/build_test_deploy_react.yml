@@ -63,7 +63,7 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1  # ✅ Correction ici
+        uses: actions/upload-pages-artifact@v3  # ✅ Correction ici
         with:
           path: build
           if-no-files-found: error
