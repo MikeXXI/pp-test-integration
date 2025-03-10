@@ -2,7 +2,7 @@ name: Build, Test and Deploy React Application
 
 on:
   push:
-    branches: [ master ]  # Assure-toi que c'est bien la bonne branche
+    branches: [ master ]  # Assure-toi que la branche est correcte
   pull_request:
     branches: [ master ]
 
@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]  # Version plus stable
+        node-version: [20.x]  # Version stable de Node.js
 
     steps:
       - name: Checkout du code
@@ -47,7 +47,7 @@ jobs:
           npm version ${{env.GITHUB_VERSION_BUILD}}
           echo ${{env.GITHUB_VERSION_BUILD}} >> README.md
           git commit -am "new version ${{env.GITHUB_VERSION_BUILD}}"
-          git push origin HEAD:main  # Ajout du push
+          git push origin HEAD:master  # Correction ici
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
@@ -63,7 +63,7 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v1  # ✅ Correction ici
         with:
           path: build
           if-no-files-found: error
@@ -71,7 +71,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}  # Correction ici
+      url: ${{ steps.deployment.outputs.page_url }}  # Vérifie que l'output est défini
     runs-on: ubuntu-latest
     needs: build_test
 
@@ -80,6 +80,9 @@ jobs:
       id-token: write
 
     steps:
+      - name: Checkout du code (nécessaire pour le déploiement)
+        uses: actions/checkout@v4
+
       - name: Deploy to GitHub Pages
         id: deployment  # Ajout de l'ID
         uses: actions/deploy-pages@v2
