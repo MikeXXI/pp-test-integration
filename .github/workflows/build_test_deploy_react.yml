@@ -1,94 +1,85 @@
 name: Build, Test and Deploy React Application
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ master ]
+    branches: [ master ]  # Assure-toi que c'est bien la bonne branche
   pull_request:
     branches: [ master ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build_test:
-    permissions: # Job-level permissions configuration starts here
-      contents: write # 'write' access to repository contents
-      pull-requests: write # 'write' access to pull requests
-      actions: write # 'write' access to workflow runs
-    # The type of runner that the job will run on
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [21.x]
+        node-version: [20.x]  # Version plus stable
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        run: npm install
-      - name: npm ci, build and test
+
+      - name: Installer les dépendances
+        run: npm ci  # Plus rapide que npm install
+
+      - name: Build et Test
         run: |
-          npm ci
           npm run build --if-present
-          npm run test
-      # Generate version
-      - name: Set env
+          npm test
+
+      - name: Générer version
         run: |
           npm i -g semver
-          echo "GITHUB_VERSION_BUILD=$(echo $(semver 0.1.1 -i prerelease --preid ${{github.run_id}}-${{github.run_number}}-${{github.run_attempt}}))" >> $GITHUB_ENV
-      - name: Update versionning
+          echo "GITHUB_VERSION_BUILD=$(semver 0.1.1 -i prerelease)" >> $GITHUB_ENV
+
+      - name: Mise à jour du versioning
         run: |
           git config --global user.email "mickael.djegherif@outlook.fr"
           git config --global user.name "Mike"
           npm version ${{env.GITHUB_VERSION_BUILD}}
           echo ${{env.GITHUB_VERSION_BUILD}} >> README.md
-          git commit -a -m "new version ${{env.GITHUB_VERSION_BUILD}}"
-          
+          git commit -am "new version ${{env.GITHUB_VERSION_BUILD}}"
+          git push origin HEAD:main  # Ajout du push
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           slug: MikeXXI/pp-test-integration
 
-      - name: Generate jsdoc
+      - name: Générer JSDoc
         run: npm run jsdoc
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          # Upload entire repository
           path: build
           if-no-files-found: error
-      
-          
 
-
-
-  # Deploy job
   deploy:
-    # Deploy to the github-pages environment
     environment:
       name: github-pages
-      url: ${{steps.deployment.outputs.page_url}}
+      url: ${{ steps.deployment.outputs.page_url }}  # Correction ici
     runs-on: ubuntu-latest
-
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-    
-    # Add a dependency to the build job
     needs: build_test
-    # Specify runner + deployment step
+
+    permissions:
+      pages: write
+      id-token: write
+
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment
+        id: deployment  # Ajout de l'ID
         uses: actions/deploy-pages@v2
